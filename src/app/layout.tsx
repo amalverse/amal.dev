@@ -10,12 +10,11 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://amal.dev"),
-  title: "Amal Kishor | Senior Software Engineer",
+  title: "Amal Kishor | Full Stack Developer",
   description:
     "Experienced Full Stack Developer crafting scalable architectures, resilient microservices, and exceptionally performant web platforms. Specialized in React, Next.js, Node.js, and AI integrations.",
   keywords: [
     "Amal Kishor",
-    "Senior Software Engineer",
     "Full Stack Developer",
     "Frontend Engineer",
     "System Architecture",
@@ -28,7 +27,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Amal Kishor" }],
   openGraph: {
-    title: "Amal Kishor | Senior Software Engineer",
+    title: "Amal Kishor | Full Stack Developer",
     description:
       "A software engineering portfolio specializing in building hyper-scalable web architectures, complex frontend state management, and modern scalable application design.",
     type: "website",
@@ -36,7 +35,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Amal Kishor | Senior Software Engineer",
+    title: "Amal Kishor | Full Stack Developer",
     description:
       "A software engineering portfolio specializing in building hyper-scalable web architectures, complex frontend state management, and modern scalable application design.",
   },

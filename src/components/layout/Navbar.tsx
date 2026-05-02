@@ -12,6 +12,7 @@ import {
   FiMenu,
   FiX,
   FiBarChart2,
+  FiLayout,
 } from "react-icons/fi";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 
@@ -22,6 +23,7 @@ const navLinks = [
   { href: "/#education", label: "Education", icon: <FiBook /> },
   { href: "/#skills", label: "Skills", icon: <FiCode /> },
   { href: "/#projects", label: "Projects", icon: <FiBriefcase /> },
+  { href: "/#ui-components", label: "Components", icon: <FiLayout /> },
   { href: "/stats", label: "Stats", icon: <FiBarChart2 /> },
   { href: "/#contact", label: "Contact", icon: <FiMail /> },
 ];

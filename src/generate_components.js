@@ -1,0 +1,124 @@
+const fs = require('fs');
+
+const components = [
+  {
+    name: "Primary Button",
+    code: `<button className="px-6 py-2.5 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 transition-colors focus:ring-4 focus:ring-blue-500/30">Primary</button>`
+  },
+  {
+    name: "Outline Button",
+    code: `<button className="px-6 py-2.5 rounded-lg border-2 border-gray-700 text-gray-200 font-medium hover:bg-gray-800 transition-colors focus:ring-4 focus:ring-gray-700/50">Outline</button>`
+  },
+  {
+    name: "Ghost Button",
+    code: `<button className="px-6 py-2.5 rounded-lg text-gray-300 font-medium hover:bg-white/10 transition-colors">Ghost</button>`
+  },
+  {
+    name: "Gradient Button",
+    code: `<button className="px-6 py-2.5 rounded-lg bg-gradient-to-r from-purple-500 to-indigo-600 text-white font-medium hover:from-purple-600 hover:to-indigo-700 transition-all shadow-lg shadow-indigo-500/30">Gradient</button>`
+  },
+  {
+    name: "Modern Input",
+    code: `<input type="text" placeholder="Enter username..." className="w-full max-w-sm px-4 py-2.5 bg-gray-900 border border-gray-700 rounded-lg text-gray-200 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all" />`
+  },
+  {
+    name: "Search Input",
+    code: `<div className="relative w-full max-w-sm"><div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><svg className="h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg></div><input type="text" placeholder="Search..." className="w-full pl-10 pr-4 py-2.5 bg-gray-900 border border-gray-800 rounded-full text-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all" /></div>`
+  },
+  {
+    name: "Textarea",
+    code: `<textarea placeholder="Write your message..." rows={4} className="w-full max-w-md px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg text-gray-200 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all resize-none"></textarea>`
+  },
+  {
+    name: "Checkbox",
+    code: `<label className="flex items-center space-x-3 cursor-pointer"><input type="checkbox" className="w-5 h-5 rounded border-gray-600 text-blue-500 focus:ring-blue-500 focus:ring-offset-gray-900 bg-gray-800" /><span className="text-gray-300 font-medium">Remember me</span></label>`
+  },
+  {
+    name: "Toggle Switch",
+    code: `<label className="relative inline-flex items-center cursor-pointer"><input type="checkbox" value="" className="sr-only peer" /><div className="w-11 h-6 bg-gray-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-800 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div><span className="ml-3 text-sm font-medium text-gray-300">Toggle mode</span></label>`
+  },
+  {
+    name: "Solid Badge",
+    code: `<span className="px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/20 text-blue-400">New Feature</span>`
+  },
+  {
+    name: "Outline Badge",
+    code: `<span className="px-3 py-1 rounded-full text-xs font-semibold border border-green-500/50 text-green-400">Completed</span>`
+  },
+  {
+    name: "User Avatar",
+    code: `<img src="https://api.dicebear.com/7.x/notionists/svg?seed=John" alt="Avatar" className="w-12 h-12 rounded-full border-2 border-gray-700 object-cover bg-gray-800" />`
+  },
+  {
+    name: "Avatar Group",
+    code: `<div className="flex -space-x-4"><img className="w-10 h-10 rounded-full border-2 border-gray-900 bg-gray-800" src="https://api.dicebear.com/7.x/notionists/svg?seed=A" alt="" /><img className="w-10 h-10 rounded-full border-2 border-gray-900 bg-gray-800" src="https://api.dicebear.com/7.x/notionists/svg?seed=B" alt="" /><img className="w-10 h-10 rounded-full border-2 border-gray-900 bg-gray-800" src="https://api.dicebear.com/7.x/notionists/svg?seed=C" alt="" /><div className="flex items-center justify-center w-10 h-10 rounded-full border-2 border-gray-900 bg-gray-800 text-xs font-medium text-white">+3</div></div>`
+  },
+  {
+    name: "Tooltip",
+    code: `<div className="group relative inline-block"><button className="px-4 py-2 bg-gray-800 text-gray-200 rounded-lg hover:bg-gray-700">Hover me</button><div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1.5 bg-gray-900 text-xs text-white rounded opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all whitespace-nowrap z-10 shadow-xl border border-gray-800">Tooltip content<div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div></div></div>`
+  },
+  {
+    name: "Notification Toast",
+    code: `<div className="flex items-center w-full max-w-xs p-4 text-gray-300 bg-gray-900 rounded-lg shadow border border-gray-800" role="alert"><div className="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-500/10 rounded-lg"><svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/></svg></div><div className="ml-3 text-sm font-normal">Item sent successfully.</div></div>`
+  },
+  {
+    name: "Default Card",
+    code: `<div className="w-full max-w-sm p-6 bg-gray-900 border border-gray-800 rounded-xl shadow-lg"><h5 className="mb-2 text-2xl font-bold tracking-tight text-white">Card Title</h5><p className="font-normal text-gray-400 mb-4">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p><button className="text-blue-400 hover:text-blue-300 font-medium inline-flex items-center">Read more <svg className="w-3.5 h-3.5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></button></div>`
+  },
+  {
+    name: "Profile Card",
+    code: `<div className="w-full max-w-sm bg-gray-900 border border-gray-800 rounded-2xl p-6 flex flex-col items-center"><img className="w-24 h-24 mb-3 rounded-full shadow-lg border-4 border-gray-800 object-cover bg-gray-800" src="https://api.dicebear.com/7.x/notionists/svg?seed=Alex" alt="Profile" /><h5 className="mb-1 text-xl font-medium text-white">Alex Developer</h5><span className="text-sm text-gray-400">Senior React Engineer</span><div className="flex mt-4 space-x-3"><button className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-600 rounded-lg hover:bg-blue-700">Follow</button><button className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-gray-300 bg-gray-800 border border-gray-700 rounded-lg hover:bg-gray-700">Message</button></div></div>`
+  },
+  {
+    name: "Pricing Card",
+    code: `<div className="w-full max-w-sm p-6 bg-gray-900 border border-gray-800 rounded-2xl shadow"><h5 className="mb-4 text-xl font-medium text-gray-300">Pro Plan</h5><div className="flex items-baseline text-white"><span className="text-3xl font-semibold">$</span><span className="text-5xl font-extrabold tracking-tight">49</span><span className="ml-1 text-xl font-normal text-gray-400">/month</span></div><ul role="list" className="space-y-4 my-6"><li className="flex space-x-3"><svg className="flex-shrink-0 w-5 h-5 text-blue-500" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path></svg><span className="text-base font-normal leading-tight text-gray-300">Unlimited projects</span></li><li className="flex space-x-3"><svg className="flex-shrink-0 w-5 h-5 text-blue-500" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path></svg><span className="text-base font-normal leading-tight text-gray-300">Priority support</span></li></ul><button className="text-white bg-blue-600 hover:bg-blue-700 w-full focus:ring-4 focus:ring-blue-500/20 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-colors">Choose plan</button></div>`
+  },
+  {
+    name: "Stats Card",
+    code: `<div className="max-w-sm p-6 bg-gray-900 rounded-2xl shadow-sm border border-gray-800"><div className="flex items-center"><div className="inline-flex flex-shrink-0 items-center justify-center h-12 w-12 text-purple-400 bg-purple-500/10 rounded-xl"><svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg></div><div className="ml-4"><h3 className="text-base font-normal text-gray-400">Total Revenue</h3><p className="text-2xl font-bold text-white">$45,231.89</p></div></div></div>`
+  },
+  {
+    name: "Progress Bar",
+    code: `<div className="w-full max-w-sm"><div className="flex justify-between mb-1"><span className="text-sm font-medium text-white">Downloading</span><span className="text-sm font-medium text-white">45%</span></div><div className="w-full bg-gray-700 rounded-full h-2.5"><div className="bg-blue-600 h-2.5 rounded-full" style={{ width: '45%' }}></div></div></div>`
+  },
+  {
+    name: "Spinner Loader",
+    code: `<div className="flex items-center justify-center space-x-2"><div className="w-8 h-8 border-4 border-gray-600 border-t-blue-500 rounded-full animate-spin"></div><span className="text-gray-400 font-medium ml-3">Loading...</span></div>`
+  },
+  {
+    name: "Skeleton Loader",
+    code: `<div className="w-full max-w-sm animate-pulse flex space-x-4"><div className="rounded-full bg-gray-700 h-12 w-12"></div><div className="flex-1 space-y-4 py-1"><div className="h-2 bg-gray-700 rounded w-3/4"></div><div className="space-y-2"><div className="h-2 bg-gray-700 rounded"></div><div className="h-2 bg-gray-700 rounded w-5/6"></div></div></div></div>`
+  },
+  {
+    name: "Dropdown Menu",
+    code: `<div className="relative inline-block text-left group"><button className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-gray-800 border border-gray-700 rounded-md hover:bg-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">Options<svg className="w-5 h-5 ml-2 -mr-1 text-gray-400" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" /></svg></button><div className="absolute right-0 w-56 mt-2 origin-top-right bg-gray-900 border border-gray-800 divide-y divide-gray-800 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all ring-1 ring-black ring-opacity-5 focus:outline-none z-10"><div className="px-1 py-1"><button className="group flex rounded-md items-center w-full px-2 py-2 text-sm text-gray-300 hover:bg-gray-800 hover:text-white">Edit</button><button className="group flex rounded-md items-center w-full px-2 py-2 text-sm text-gray-300 hover:bg-gray-800 hover:text-white">Duplicate</button></div><div className="px-1 py-1"><button className="group flex rounded-md items-center w-full px-2 py-2 text-sm text-red-400 hover:bg-gray-800 hover:text-red-300">Delete</button></div></div></div>`
+  },
+  {
+    name: "Alert Box",
+    code: `<div className="p-4 mb-4 text-sm text-blue-400 rounded-lg bg-blue-900/20 border border-blue-800/50 max-w-md" role="alert"><span className="font-medium">Info alert!</span> Change a few things up and try submitting again.</div>`
+  },
+  {
+    name: "Rating Stars",
+    code: `<div className="flex items-center"><svg className="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg><svg className="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M..."></path></svg><svg className="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M..."></path></svg><svg className="w-5 h-5 text-gray-600" fill="currentColor" viewBox="0 0 20 20"><path d="M..."></path></svg><svg className="w-5 h-5 text-gray-600" fill="currentColor" viewBox="0 0 20 20"><path d="M..."></path></svg><span className="ml-2 text-sm font-medium text-gray-400">3.0 out of 5</span></div>`.replace(/M\.\.\./g, 'M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z')
+  }
+];
+
+const output = \`import React from "react";
+
+export interface UIComponent {
+  id: string;
+  name: string;
+  code: string;
+}
+
+export const uiComponentsData: UIComponent[] = [
+\${components.map((c, i) => \`  {
+    id: "comp-\${i+1}",
+    name: "\${c.name}",
+    code: \\\`\${c.code}\\\`
+  }\`).join(",\\n")}
+];
+\`;
+
+fs.writeFileSync('data/uiComponents.ts', output);
+console.log('done');

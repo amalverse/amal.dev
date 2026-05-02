@@ -7,7 +7,7 @@ import {
   SiHtml5, SiCss, SiJavascript,
   SiReact, SiNextdotjs, SiTypescript, SiTailwindcss, SiRedux, SiFramer,
   SiNodedotjs, SiExpress, SiMongodb, SiPostgresql,
-  SiGit, SiVercel, SiPostman
+  SiGit, SiVercel, SiPostman, SiWordpress
 } from "react-icons/si";
 
 const skillCategories = [
@@ -44,6 +44,7 @@ const skillCategories = [
       { name: "Git", icon: <SiGit className="text-[#F05032]" /> },
       { name: "Vercel", icon: <SiVercel className="text-white" /> },
       { name: "Postman", icon: <SiPostman className="text-[#FF6C37]" /> },
+      { name: "WordPress", icon: <SiWordpress className="text-[#21759B]" /> },
     ],
   },
 ];

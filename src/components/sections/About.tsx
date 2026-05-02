@@ -83,8 +83,8 @@ export default function About() {
               <div className="relative pl-8">
                 <div className="absolute w-5 h-5 bg-primary rounded-full -left-[11px] top-1 outline outline-4 outline-white dark:outline-gray-900 shadow-sm"></div>
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-2 gap-2">
-                  <h4 className="font-bold text-xl text-white">Full Stack Developer (Training Program)</h4>
-                  <span className="text-xs font-bold px-3 py-1 bg-primary/10 text-primary rounded-full w-fit">July 2025 – Present</span>
+                  <h4 className="font-bold text-xl text-white">Full Stack Web Development(Training Program)</h4>
+                  <span className="text-xs font-bold px-3 py-1 bg-primary/10 text-primary rounded-full w-fit">July 2025 – April 2026</span>
                 </div>
                 <p className="text-sm font-medium text-gray-400 mb-4">AlmaBetter (Remote)</p>
                 <ul className="text-base text-gray-300 leading-relaxed list-disc list-outside ml-4 space-y-1">

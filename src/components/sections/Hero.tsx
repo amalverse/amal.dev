@@ -53,7 +53,7 @@ export default function Hero() {
                 View My Work <FiArrowRight />
               </Link>
               <a
-                href="/resume/Full-Stack Developer Resume.pdf"
+                href="/resume/Frontend Developer Resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-8 py-4 bg-gray-900 border-2 border-gray-800 text-white font-bold rounded-full hover:bg-gray-800 transition-all shadow-md active:scale-95"
